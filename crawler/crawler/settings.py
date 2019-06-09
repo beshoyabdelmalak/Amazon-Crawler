@@ -91,4 +91,5 @@ ROTATING_PROXY_LIST_PATH = 'Proxy List.txt'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
+# uncomment to see all the logging
 LOG_LEVEL= 'WARNING'

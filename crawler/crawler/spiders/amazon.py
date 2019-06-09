@@ -48,6 +48,10 @@ class AmazonSpider(scrapy.Spider):
         if asin is None :
             return None
 
+        # another fallback
+        if ' ' in asin.strip():
+            return None
+
         # trim all white spaces
         asin = asin.strip()
 
