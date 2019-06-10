@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="002c2cb2-240f-432a-af12-991d47d3d027" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/product_xml_files/32.4 x 22.6 x 2 inches.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/product_xml_files/B01LZ6XKS6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/product_xml_files/B0778F81ZG.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/product_xml_files/B078C8XFSY.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/product_xml_files/B07FSFRWS4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/product_xml_files/B07GKZJ8CX.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/product_xml_files/B07GM2J11Q.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/product_xml_files/B07KDQW7Q1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/product_xml_files/B07KWG73RQ.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/product_xml_files/B07MX1H288.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/product_xml_files/B07NGCJW4R.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/product_xml_files/B07QJDGGS7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/crawler/crawler/laptops.txt" beforeDir="false" afterPath="$PROJECT_DIR$/crawler/crawler/laptops.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crawler/crawler/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler/crawler/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crawler/crawler/spiders/amazon.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler/crawler/spiders/amazon.py" afterDir="false" />
     </list>
@@ -27,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/crawler/crawler/spiders/amazon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="51" column="31" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
+            <state relative-caret-position="1097">
+              <caret line="67" column="58" lean-forward="true" selection-start-line="67" selection-start-column="58" selection-end-line="67" selection-end-column="58" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -39,16 +26,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/crawler/crawler/laptops.txt">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="316">
+              <caret line="3339" selection-start-line="3339" selection-end-line="3485" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/crawler/crawler/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="95" selection-start-line="95" selection-end-line="95" />
+            <state relative-caret-position="130">
+              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -69,10 +60,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/crawler/crawler/settings.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/crawler/crawler/laptops.txt" />
         <option value="$PROJECT_DIR$/crawler/crawler/spiders/amazon.py" />
+        <option value="$PROJECT_DIR$/crawler/crawler/settings.py" />
       </list>
     </option>
   </component>
@@ -152,12 +143,12 @@
       <option name="presentableId" value="Default" />
       <updated>1559919554754</updated>
       <workItem from="1559919563455" duration="14219000" />
-      <workItem from="1560006846663" duration="11070000" />
+      <workItem from="1560006846663" duration="17460000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25289000" />
+    <option name="totallyTimeSpent" value="31679000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="804" extended-state="6" />
@@ -167,8 +158,8 @@
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.24678111" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" order="0" />
-      <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.49928468" weight="0.4733146" />
-      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.5007153" side_tool="true" weight="0.47050563" />
+      <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.4985694" visible="true" weight="0.4733146" />
+      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.50143063" side_tool="true" weight="0.4733146" />
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Python Console" order="4" />
       <window_info anchor="bottom" id="Docker" order="5" show_stripe_button="false" />
@@ -194,13 +185,6 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/crawler/laptops.txt" />
-    <entry file="file://$PROJECT_DIR$/crawler/crawler/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="95" selection-start-line="95" selection-end-line="95" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -208,16 +192,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crawler/crawler/laptops.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/crawler/crawler/spiders/amazon.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="51" column="31" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
+        <state relative-caret-position="1097">
+          <caret line="67" column="58" lean-forward="true" selection-start-line="67" selection-start-column="58" selection-end-line="67" selection-end-column="58" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler/crawler/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler/crawler/laptops.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="3339" selection-start-line="3339" selection-end-line="3485" />
         </state>
       </provider>
     </entry>
