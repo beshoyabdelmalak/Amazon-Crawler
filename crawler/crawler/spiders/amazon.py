@@ -1,5 +1,6 @@
 import scrapy
 import re
+import os
 
 
 class AmazonSpider(scrapy.Spider):
@@ -46,8 +47,7 @@ class AmazonSpider(scrapy.Spider):
         'https://www.amazon.com/s?k=laptop&bbn=565108&rh=n%3A172282%2Cn%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_89%3AToughbook&dc&fst=as%3Aoff&qid=1560104316&rnid=2528832011&ref=sr_in_-2_p_89_47',
         'https://www.amazon.com/s?k=laptop&bbn=565108&rh=n%3A172282%2Cn%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_89%3AXOTIC+PC&dc&fst=as%3Aoff&qid=1560104316&rnid=2528832011&ref=sr_in_-2_p_89_50'
     ]
-    # start_urls = ['https://www.amazon.com/s?k=laptop&i=computers&rh=n%3A172282%2Cn%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cn%3A13896615011&dc&qid=1559821064&rnid=493964&ref=sr_nr_n_1%29']
-    # i = 1
+    # start_urls = ['https://www.amazon.com/s?k=laptop&bbn=565108&rh=n%3A172282%2Cn%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_89%3AAcer&dc&fst=as%3Aoff&qid=1560104316&rnid=2528832011&ref=sr_in_-2_p_89_0']
 
     def parse(self, response):
         # get all the urls of the page by following the title of the product
@@ -58,14 +58,12 @@ class AmazonSpider(scrapy.Spider):
             # print(response.url)
             yield scrapy.Request(url=response.url, callback=self.parse, dont_filter=True)
 
-        # self.log(urls)
-
         # for every url, crawl the details page
         for url in urls:
             link = response.urljoin(url)
             yield scrapy.Request(url = link, callback= self.parse_details)
 
-        # link = 'https://www.amazon.com/HP-EliteBook-8460p-WINDOWS-Professional/dp/B016PAJAFY'
+        # link = response.urljoin(urls[0])
         # yield scrapy.Request(url=link, callback=self.parse_details)
 
         # get the next page button, and extract the link inside it
@@ -82,7 +80,7 @@ class AmazonSpider(scrapy.Spider):
         asin = response.css('#productDetails_detailBullets_sections1 tr:nth-child(1) td::text').get()
 
         # fallback
-        if asin is None :
+        if asin is None:
             return None
 
         # another fallback
@@ -92,8 +90,10 @@ class AmazonSpider(scrapy.Spider):
         # trim all white spaces
         asin = asin.strip()
 
+
         # remove all the unwanted data from the url to make it more readable
         link = re.match('https:\/\/www\.amazon\.com\/.*\/dp\/.*\/', response.url.strip())
+
         # fallback
         if link is None:
             link = re.match('https:\/\/www\.amazon\.com\/dp\/.*\/', response.url.strip())
@@ -111,10 +111,38 @@ class AmazonSpider(scrapy.Spider):
         yield self.writeXML(response, asin)
 
 
-    def writeXML(sel, response, asin):
+
+        reviews = response.css("#reviews-medley-footer .a-text-bold::attr(href)").get()
+        if reviews:
+          reviews_page = response.urljoin(reviews)
+          yield scrapy.Request(url=reviews_page, callback=self.parse_reviews,meta={'asin': asin})
+
+
+    # scrape the reviews page
+    def parse_reviews(self, response):
+
+      # get the asin
+      asin = response.meta['asin']
+
+      yield self.writeXML(response, asin)
+      next_page = response.css(".a-last a::attr(href)").get()
+      if next_page :
+        next_page = response.urljoin(next_page)
+        yield scrapy.Request(url=next_page, callback=self.parse_reviews,meta={'asin': asin})
+
+
+
+    def writeXML(self, response, asin):
         content = response.body.decode('utf-8')
+        filename ="product_xml_files/" + asin + ".xml"
+
+        if os.path.exists(filename):
+          append_write = 'a'  # append if already exists
+        else:
+          append_write = 'w'  # make a new file if not
+
         try:
-            f = open('product_xml_files/' + str(asin) + '.xml', 'w')
+            f = open(filename, append_write)
             f.write(content)
             f.close()
         except Exception as e:
