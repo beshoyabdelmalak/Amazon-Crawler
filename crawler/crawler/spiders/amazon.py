@@ -47,7 +47,7 @@ class AmazonSpider(scrapy.Spider):
         'https://www.amazon.com/s?k=laptop&bbn=565108&rh=n%3A172282%2Cn%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_89%3AToughbook&dc&fst=as%3Aoff&qid=1560104316&rnid=2528832011&ref=sr_in_-2_p_89_47',
         'https://www.amazon.com/s?k=laptop&bbn=565108&rh=n%3A172282%2Cn%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_89%3AXOTIC+PC&dc&fst=as%3Aoff&qid=1560104316&rnid=2528832011&ref=sr_in_-2_p_89_50'
     ]
-    # start_urls = ['https://www.amazon.com/s?k=laptop&bbn=565108&rh=n%3A172282%2Cn%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_89%3AAcer&dc&fst=as%3Aoff&qid=1560104316&rnid=2528832011&ref=sr_in_-2_p_89_0']
+    # start_urls = ['https://www.amazon.com/s?k=laptop&i=electronics&ref=nb_sb_noss_1']
 
     def parse(self, response):
         # get all the urls of the page by following the title of the product
@@ -64,7 +64,7 @@ class AmazonSpider(scrapy.Spider):
             yield scrapy.Request(url = link, callback= self.parse_details)
 
         # link = response.urljoin(urls[0])
-        # yield scrapy.Request(url=link, callback=self.parse_details)
+        # yield scrapy.Request(url=response.url, callback=self.parse_details)
 
         # get the next page button, and extract the link inside it
         next_page = response.css('.a-last a::attr(href)').get()
@@ -120,11 +120,10 @@ class AmazonSpider(scrapy.Spider):
 
     # scrape the reviews page
     def parse_reviews(self, response):
-
       # get the asin
       asin = response.meta['asin']
 
-      yield self.writeXML(response, asin)
+      yield self.writeReviewXML(response, asin)
       next_page = response.css(".a-last a::attr(href)").get()
       if next_page :
         next_page = response.urljoin(next_page)
@@ -143,6 +142,17 @@ class AmazonSpider(scrapy.Spider):
 
         try:
             f = open(filename, append_write)
+            f.write(content)
+            f.close()
+        except Exception as e:
+            print(format(e))
+
+    def writeReviewXML(self, response, asin):
+        content = response.body.decode('utf-8')
+        filename ="review_xml_files/" + asin + ".xml"
+        try:
+            f = open(filename, 'a')
+            f.write("<div class=asin>" + asin + "</div>")
             f.write(content)
             f.close()
         except Exception as e:

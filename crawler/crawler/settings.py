@@ -10,8 +10,8 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64; rv:7.0.1) Gecko/20100101 Firefox/7
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
-    'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
-    'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
+    # 'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
+    # 'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
 }
 # Obey robots.txt rules
 # ROBOTSTXT_OBEY = False
@@ -47,7 +47,7 @@ DOWNLOADER_MIDDLEWARES = {
 
 # PROXY_POOL_ENABLED = True
 # PROXY_POOL_PAGE_RETRY_TIMES = 10
-ROTATING_PROXY_PAGE_RETRY_TIMES = 10
+# ROTATING_PROXY_PAGE_RETRY_TIMES = 10
 ROTATING_PROXY_LIST_PATH = 'crawler/proxy_list.txt'
 
 # Enable or disable downloader middlewares
