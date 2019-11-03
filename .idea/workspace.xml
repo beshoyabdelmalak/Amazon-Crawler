@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="002c2cb2-240f-432a-af12-991d47d3d027" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler/crawler/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/crawler/spiders/amazon.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler/crawler/spiders/amazon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler/laptops.txt" beforeDir="false" afterPath="$PROJECT_DIR$/crawler/laptops.txt" afterDir="false" />
-    </list>
+    <list default="true" id="002c2cb2-240f-432a-af12-991d47d3d027" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +97,7 @@
       <workItem from="1570992679624" duration="266000" />
       <workItem from="1571074320227" duration="6058000" />
       <workItem from="1571230667620" duration="597000" />
+      <workItem from="1571938228088" duration="54000" />
     </task>
     <servers />
   </component>
