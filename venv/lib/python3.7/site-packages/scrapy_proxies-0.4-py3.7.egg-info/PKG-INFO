@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: scrapy-proxies
+Version: 0.4
+Summary: Scrapy Proxies: random proxy middleware for Scrapy
+Home-page: https://github.com/aivarsk/scrapy-proxies
+Author: Aivars Kalvans
+Author-email: aivars.kalvans@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN

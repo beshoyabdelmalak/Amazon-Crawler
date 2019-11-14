@@ -1,3 +1,5 @@
 {
-    "python.pythonPath": "venv/bin/python3"
+    "python.pythonPath": "/Users/beshoy/workspace/Amazon-Crawler/venv/bin/python3",
+    "git.ignoreLimitWarning": true,
+    "python.formatting.provider": "black"
 }

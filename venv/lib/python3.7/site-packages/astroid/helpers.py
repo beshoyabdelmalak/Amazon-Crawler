@@ -52,7 +52,7 @@ def _object_type(node, context=None):
     for inferred in node.infer(context=context):
         if isinstance(inferred, scoped_nodes.ClassDef):
             if inferred.newstyle:
-                metaclass = inferred.metaclass()
+                metaclass = inferred.metaclass(context=context)
                 if metaclass:
                     yield metaclass
                     continue
@@ -196,8 +196,8 @@ def _type_check(type1, type2):
 
 
 def is_subtype(type1, type2):
-    """Check if *type1* is a subtype of *typ2*."""
-    return _type_check(type2, type1)
+    """Check if *type1* is a subtype of *type2*."""
+    return _type_check(type1=type2, type2=type1)
 
 
 def is_supertype(type1, type2):
@@ -240,6 +240,7 @@ def object_len(node, context=None):
         or if multiple nodes are inferred
     :rtype int: Integer length of node
     """
+    # pylint: disable=import-outside-toplevel; circular import
     from astroid.objects import FrozenSet
 
     inferred_node = safe_infer(node, context=context)

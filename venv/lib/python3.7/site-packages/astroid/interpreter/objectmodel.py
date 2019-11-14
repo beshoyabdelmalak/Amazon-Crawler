@@ -228,6 +228,7 @@ class FunctionModel(ObjectModel):
         pair_annotations = itertools.chain(
             zip(args.args or [], args.annotations),
             zip(args.kwonlyargs, args.kwonlyargs_annotations),
+            zip(args.posonlyargs or [], args.posonlyargs_annotations),
         )
 
         annotations = {
@@ -279,6 +280,7 @@ class FunctionModel(ObjectModel):
 
     @property
     def attr___get__(self):
+        # pylint: disable=import-outside-toplevel; circular import
         from astroid import bases
 
         func = self._instance
@@ -292,7 +294,7 @@ class FunctionModel(ObjectModel):
                 return 0
 
             def infer_call_result(self, caller, context=None):
-                if len(caller.args) != 2:
+                if len(caller.args) > 2 or len(caller.args) < 1:
                     raise exceptions.InferenceError(
                         "Invalid arguments for descriptor binding",
                         target=self,
@@ -342,11 +344,15 @@ class FunctionModel(ObjectModel):
                 we get a new object which has two parameters, *self* and *type*.
                 """
                 nonlocal func
-                params = func.args.args.copy()
-                params.append(astroid.AssignName(name="type"))
+                positional_or_keyword_params = func.args.args.copy()
+                positional_or_keyword_params.append(astroid.AssignName(name="type"))
+
+                positional_only_params = func.args.posonlyargs.copy()
+
                 arguments = astroid.Arguments(parent=func.args.parent)
                 arguments.postinit(
-                    args=params,
+                    args=positional_or_keyword_params,
+                    posonlyargs=positional_only_params,
                     defaults=[],
                     kwonlyargs=[],
                     kw_defaults=[],
@@ -420,6 +426,7 @@ class ClassModel(ObjectModel):
                 target=self._instance, attribute="mro"
             )
 
+        # pylint: disable=import-outside-toplevel; circular import
         from astroid import bases
 
         other_self = self
@@ -444,6 +451,7 @@ class ClassModel(ObjectModel):
 
     @property
     def attr___class__(self):
+        # pylint: disable=import-outside-toplevel; circular import
         from astroid import helpers
 
         return helpers.object_type(self._instance)
@@ -455,6 +463,7 @@ class ClassModel(ObjectModel):
         This looks only in the current module for retrieving the subclasses,
         thus it might miss a couple of them.
         """
+        # pylint: disable=import-outside-toplevel; circular import
         from astroid import bases
         from astroid import scoped_nodes
 
@@ -508,6 +517,7 @@ class SuperModel(ObjectModel):
 class UnboundMethodModel(ObjectModel):
     @property
     def attr___class__(self):
+        # pylint: disable=import-outside-toplevel; circular import
         from astroid import helpers
 
         return helpers.object_type(self._instance)
@@ -696,10 +706,10 @@ class DictModel(ObjectModel):
             elems.append(elem)
         obj.postinit(elts=elems)
 
+        # pylint: disable=import-outside-toplevel; circular import
         from astroid import objects
 
         obj = objects.DictItems(obj)
-
         return self._generic_dict_attribute(obj, "items")
 
     @property
@@ -708,10 +718,10 @@ class DictModel(ObjectModel):
         obj = node_classes.List(parent=self._instance)
         obj.postinit(elts=keys)
 
+        # pylint: disable=import-outside-toplevel; circular import
         from astroid import objects
 
         obj = objects.DictKeys(obj)
-
         return self._generic_dict_attribute(obj, "keys")
 
     @property
@@ -721,8 +731,8 @@ class DictModel(ObjectModel):
         obj = node_classes.List(parent=self._instance)
         obj.postinit(values)
 
+        # pylint: disable=import-outside-toplevel; circular import
         from astroid import objects
 
         obj = objects.DictValues(obj)
-
         return self._generic_dict_attribute(obj, "values")

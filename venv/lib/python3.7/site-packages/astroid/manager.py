@@ -26,6 +26,9 @@ from astroid import modutils
 from astroid import transforms
 
 
+ZIP_IMPORT_EXTS = (".zip", ".egg", ".whl")
+
+
 def safe_repr(obj):
     try:
         return repr(obj)
@@ -86,6 +89,7 @@ class AstroidManager:
         ):
             return self.astroid_cache[modname]
         if source:
+            # pylint: disable=import-outside-toplevel; circular import
             from astroid.builder import AstroidBuilder
 
             return AstroidBuilder(self).file_build(filepath, modname)
@@ -96,11 +100,13 @@ class AstroidManager:
         )
 
     def _build_stub_module(self, modname):
+        # pylint: disable=import-outside-toplevel; circular import
         from astroid.builder import AstroidBuilder
 
         return AstroidBuilder(self).string_build("", modname)
 
     def _build_namespace_module(self, modname, path):
+        # pylint: disable=import-outside-toplevel; circular import
         from astroid.builder import build_namespace_package_module
 
         return build_namespace_package_module(modname, path)
@@ -182,10 +188,12 @@ class AstroidManager:
     def zip_import_data(self, filepath):
         if zipimport is None:
             return None
+
+        # pylint: disable=import-outside-toplevel; circular import
         from astroid.builder import AstroidBuilder
 
         builder = AstroidBuilder(self)
-        for ext in (".zip", ".egg"):
+        for ext in ZIP_IMPORT_EXTS:
             try:
                 eggpath, resource = filepath.rsplit(ext + os.path.sep, 1)
             except ValueError:
@@ -234,6 +242,8 @@ class AstroidManager:
                 return self.ast_from_file(filepath, modname)
         except AttributeError:
             pass
+
+        # pylint: disable=import-outside-toplevel; circular import
         from astroid.builder import AstroidBuilder
 
         return AstroidBuilder(self).module_build(module, modname)
@@ -317,9 +327,9 @@ class AstroidManager:
         The bootstrap usually involves building the AST for the builtins
         module, which is required by the rest of astroid to work correctly.
         """
-        import astroid.raw_building
+        from astroid import raw_building  # pylint: disable=import-outside-toplevel
 
-        astroid.raw_building._astroid_bootstrapping()
+        raw_building._astroid_bootstrapping()
 
     def clear_cache(self):
         """Clear the underlying cache. Also bootstraps the builtins module."""

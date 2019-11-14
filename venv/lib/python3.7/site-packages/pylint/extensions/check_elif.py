@@ -8,9 +8,10 @@
 # For details: https://github.com/PyCQA/pylint/blob/master/COPYING
 
 import astroid
+
 from pylint.checkers import BaseTokenChecker
 from pylint.checkers.utils import check_messages
-from pylint.interfaces import ITokenChecker, IAstroidChecker
+from pylint.interfaces import IAstroidChecker, ITokenChecker
 
 
 class ElseifUsedChecker(BaseTokenChecker):
@@ -48,7 +49,9 @@ class ElseifUsedChecker(BaseTokenChecker):
     def leave_module(self, _):
         self._init()
 
-    def visit_ifexp(self, _):
+    def visit_ifexp(self, node):
+        if isinstance(node.parent, astroid.FormattedValue):
+            return
         self._if_counter += 1
 
     def visit_comprehension(self, node):

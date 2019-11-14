@@ -45,7 +45,7 @@ class AmazonSpider(scrapy.Spider):
         'https://www.amazon.com/s?k=laptop&bbn=565108&rh=n%3A172282%2Cn%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_89%3ASony&dc&fst=as%3Aoff&qid=1560104316&rnid=2528832011&ref=sr_in_-2_p_89_44',
         'https://www.amazon.com/s?k=laptop&bbn=565108&rh=n%3A172282%2Cn%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_89%3AToshiba&dc&fst=as%3Aoff&qid=1560104316&rnid=2528832011&ref=sr_in_-2_p_89_46',
         'https://www.amazon.com/s?k=laptop&bbn=565108&rh=n%3A172282%2Cn%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_89%3AToughbook&dc&fst=as%3Aoff&qid=1560104316&rnid=2528832011&ref=sr_in_-2_p_89_47',
-        'https://www.amazon.com/s?k=laptop&bbn=565108&rh=n%3A172282%2Cn%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_89%3AXOTIC+PC&dc&fst=as%3Aoff&qid=1560104316&rnid=2528832011&ref=sr_in_-2_p_89_50'
+        'https://www.amazon.com/s?k=laptop&bbn=565108&rh=n%3A172282%2Cn%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_89%3AXOTIC+PC&dc&fst=as%3Aoff&qid=1560104316&rnid=2528832011&ref=sr_in_-2_p_89_50',
     ]
     # start_urls = ['https://www.amazon.com/s?k=laptop&i=electronics&ref=nb_sb_noss_1']
 
@@ -55,7 +55,6 @@ class AmazonSpider(scrapy.Spider):
 
         # sometimes it doesn't find any urls so we try one more time
         if len(urls) == 0:
-            # print(response.url)
             yield scrapy.Request(url=response.url, callback=self.parse, dont_filter=True)
 
         # for every url, crawl the details page
@@ -90,7 +89,7 @@ class AmazonSpider(scrapy.Spider):
         # trim all white spaces
         asin = asin.strip()
 
-
+        print("crawling {} file ".format(asin))
         # remove all the unwanted data from the url to make it more readable
         link = re.match('https:\/\/www\.amazon\.com\/.*\/dp\/.*\/', response.url.strip())
 

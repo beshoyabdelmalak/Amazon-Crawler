@@ -71,6 +71,11 @@ def _infer_sequence_helper(node, context=None):
             if not hasattr(starred, "elts"):
                 raise exceptions.InferenceError(node=node, context=context)
             values.extend(_infer_sequence_helper(starred))
+        elif isinstance(elt, nodes.NamedExpr):
+            value = helpers.safe_infer(elt.value, context)
+            if not value:
+                raise exceptions.InferenceError(node=node, context=context)
+            values.append(value)
         else:
             values.append(elt)
     return values
@@ -78,9 +83,10 @@ def _infer_sequence_helper(node, context=None):
 
 @decorators.raise_if_nothing_inferred
 def infer_sequence(self, context=None):
-    if not any(isinstance(e, nodes.Starred) for e in self.elts):
-        yield self
-    else:
+    has_starred_named_expr = any(
+        isinstance(e, (nodes.Starred, nodes.NamedExpr)) for e in self.elts
+    )
+    if has_starred_named_expr:
         values = _infer_sequence_helper(self, context)
         new_seq = type(self)(
             lineno=self.lineno, col_offset=self.col_offset, parent=self.parent
@@ -88,6 +94,8 @@ def infer_sequence(self, context=None):
         new_seq.postinit(values)
 
         yield new_seq
+    else:
+        yield self
 
 
 nodes.List._infer = infer_sequence
@@ -897,3 +905,39 @@ def _populate_context_lookup(call, context):
     for keyword in keywords:
         context_lookup[keyword.value] = context
     return context_lookup
+
+
+@decorators.raise_if_nothing_inferred
+def infer_ifexp(self, context=None):
+    """Support IfExp inference
+
+    If we can't infer the truthiness of the condition, we default
+    to inferring both branches. Otherwise, we infer either branch
+    depending on the condition.
+    """
+    both_branches = False
+    # We use two separate contexts for evaluating lhs and rhs because
+    # evaluating lhs may leave some undesired entries in context.path
+    # which may not let us infer right value of rhs.
+
+    context = context or contextmod.InferenceContext()
+    lhs_context = contextmod.copy_context(context)
+    rhs_context = contextmod.copy_context(context)
+    try:
+        test = next(self.test.infer(context=context.clone()))
+    except exceptions.InferenceError:
+        both_branches = True
+    else:
+        if test is not util.Uninferable:
+            if test.bool_value():
+                yield from self.body.infer(context=lhs_context)
+            else:
+                yield from self.orelse.infer(context=rhs_context)
+        else:
+            both_branches = True
+    if both_branches:
+        yield from self.body.infer(context=lhs_context)
+        yield from self.orelse.infer(context=rhs_context)
+
+
+nodes.IfExp._infer = infer_ifexp
