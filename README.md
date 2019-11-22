@@ -15,7 +15,7 @@ pip install scrapy-user-agents
 
 See the Documentation here : https://github.com/hyan15/crawler-demo/tree/master/crawling-basic/scrapy_user_agents
 
-# scrapy-rotatin-proxies:
+# scrapy-rotating-proxies:
 install the package using the following command: 
 pip install scrapy-rotating-proxies
 
